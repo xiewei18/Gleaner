@@ -15,8 +15,8 @@ I have been using Python to do scientific computations and make all of my plots 
 
 The majority of the functions used are in the `matplotlib` package (with most of the plotting functions being from `matplotlib.pyplot` subpackage). Additionally, I typically import `numpy` for any quick computations and `pylab` for quickly generating colors from any built-in colormap. Often times, when we import packages, we create a short-form alias (_i.e._ `mpl` for `matplotlib` ) so that we can refer to its functions using the alias instead of typing out `matplotlib` every single time.
 
-```
-\# Import required packages  
+```python
+# Import required packages  
 import matplotlib as mpl  
 import matplotlib.pyplot as plt  
 import numpy as np  
@@ -34,8 +34,10 @@ CSV file of absorbance data for two samples
 
 We can load this data into our script with the following command:
 
-```
-\# Use numpy.loadtxt to import our datawavelength, samp\_1\_abs, samp\_2\_abs = np.loadtxt('Absorbance_Data.csv', unpack=True, delimiter=',', skiprows=1)
+```python
+# Use numpy.loadtxt to import our data
+wavelength, samp_1_abs, samp_2_abs = 
+np.loadtxt('Absorbance_Data.csv', unpack=True, delimiter=',', skiprows=1)
 ```
 
 We pass our file to the `numpy.loadtxt` function along with the parameters:
@@ -50,13 +52,13 @@ We pass our file to the `numpy.loadtxt` function along with the parameters:
 =====================
 
 Once we have loaded our absorbance data, we can quickly plot and inspect both of the datasets with the following code:
-
-```
-\# Create figure and add axes object  
+python
+```python
+# Create figure and add axes object  
 fig = plt.figure()  
-ax = fig.add_axes(\[0, 0, 1, 1\])\# Plot and show our data  
-ax.plot(wavelength, samp\_1\_abs)  
-ax.plot(wavelength, samp\_2\_abs)  
+ax = fig.add_axes([0, 0, 1, 1])# Plot and show our data  
+ax.plot(wavelength, samp_1_abs)  
+ax.plot(wavelength, samp_2_abs)  
 plt.show()
 ```
 
@@ -71,16 +73,18 @@ The data plots properly, but the default `matplotlib` settings just don’t give
 
 This is a setting that I spend an irrationally large amount of time on — picking the right font for my plots. Your system already comes with a long list of pre-installed fonts, and you can check which fonts are already available to `matplotlib` with the following:
 
-```
-import matplotlib.font_manager as fm\# Collect all the font names available to matplotlib  
-font_names = \[f.name for f in fm.fontManager.ttflist\]  
+```python
+import matplotlib.font_manager as fm
+# Collect all the font names available to matplotlib  
+font_names = [f.name for f in fm.fontManager.ttflist]  
 print(font_names)
 ```
 
 If you would like to install a new font to your computer and then use it for your plots, this is also possible. First, you must download and install your desired font — many options can be found [here](https://www.fontsquirrel.com/fonts/list/popular). Once installed, you must rebuild the font cache so that it will be available to `matplotlib` when you make your figure. We do this as follows:
 
-```
-import matplotlib.font_manager as fm\# Rebuild the matplotlib font cache  
+```python
+import matplotlib.font_manager as fm
+# Rebuild the matplotlib font cache  
 fm._rebuild()
 ```
 
@@ -91,10 +95,11 @@ If you now check the list of available fonts, you should see the new font that y
 
 The three general parameters that I set at the beginning of my plot script are: (1) font, (2) font size, and (3) axis line width. These are essentially global parameters that I do not edit later so setting them at the beginning makes everything easier (_i.e._ do not have to explicitly set font/sizes for each label down the line). We must add the following code before we generate any figures, so I typically put it near the top of the script immediately after importing packages.
 
-```
-\# Edit the font, font size, and axes widthmpl.rcParams\['font.family'\] = 'Avenir'  
-plt.rcParams\['font.size'\] = 18  
-plt.rcParams\['axes.linewidth'\] = 2
+```python
+# Edit the font, font size, and axes width
+mpl.rcParams['font.family'] = 'Avenir'  
+plt.rcParams['font.size'] = 18  
+plt.rcParams['axes.linewidth'] = 2
 ```
 
 Generate Set of Colors
@@ -104,8 +109,8 @@ If you have a set of colors that you like to use, you are free to skip this step
 
 For our dataset, we are just interested in easily distinguishing between our traces, so we would be best served using one of the colormaps in the qualitative section (I will use “tab10” for this example). We use the following code — the first argument is the colormap name and the second is the number of colors we want to generate:
 
-```
-\# Generate 2 colors from the 'tab10' colormap  
+```python
+# Generate 2 colors from the 'tab10' colormap  
 colors = cm.get_cmap('tab10', 2)
 ```
 
@@ -116,8 +121,8 @@ If we were, for example, measuring the temperature-dependence of a single sample
 
 We must create a figure, which is a blank window, and then add an axes object to it for our plot. To generate the figure, we have the following:
 
-```
-\# Create figure object and store it in a variable called 'fig'  
+```python
+# Create figure object and store it in a variable called 'fig'  
 fig = plt.figure(figsize=(3, 3))
 ```
 
@@ -125,9 +130,9 @@ fig = plt.figure(figsize=(3, 3))
 
 Now we must add an axes object to our blank figure by specifying the bottom left coordinate and the width and height in relative coordinates (1 is the full size of the figure window). If we want it to fill our entire figure, we can specify `[0, 0, 1, 1]` which sets the bottom left corner to (0, 0) and the width and height to 1.
 
-```
-\# Add axes object to our figure that takes up entire figure  
-ax = fig.add_axes(\[0, 0, 1, 1\])
+```python
+# Add axes object to our figure that takes up entire figure  
+ax = fig.add_axes([0, 0, 1, 1])
 ```
 
 ![](https://miro.medium.com/max/778/1*eA3KdphW-IhkqKXVTjDWDw.png)
@@ -136,20 +141,20 @@ Blank figure with axes at (0, 0) with a width and height of 1
 
 We can use this axis construction to create paneled figures and insets by making multiple axes objects as follows:
 
-```
-\# Add two axes objects to create a paneled figure  
-ax1 = fig.add_axes(\[0, 0, 1, 0.4\])  
-ax2 = fig.add_axes(\[0, 0.6, 1, 0.4\])
+```python
+# Add two axes objects to create a paneled figure  
+ax1 = fig.add_axes([0, 0, 1, 0.4])  
+ax2 = fig.add_axes([0, 0.6, 1, 0.4])
 ```
 
 ![](https://miro.medium.com/max/778/1*wZ27Z4TwjrVOzQ5-MYFEvA.png)
 
 Blank figure with two paneled axes, one at (0, 0) and the other at (0, 0.6), with widths of 1 and heights of 0.4
 
-```
-\# Add two axes objects to create an inset figure  
-ax1 = fig.add_axes(\[0, 0, 1, 1\])  
-ax2 = fig.add_axes(\[0.5, 0.5, 0.4, 0.4\])
+```python
+# Add two axes objects to create an inset figure  
+ax1 = fig.add_axes([0, 0, 1, 1])  
+ax2 = fig.add_axes([0.5, 0.5, 0.4, 0.4])
 ```
 
 ![](https://miro.medium.com/max/778/1*B29l6SBBTgILkq1m21Vsbg.png)
@@ -161,10 +166,10 @@ Blank figure with inset — first axes takes up whole figure and second is at (0
 
 If we do not want our plot entirely enclosed, we can remove the top and right spines as follows:
 
-```
-\# Hide the top and right spines of the axis  
-ax.spines\['right'\].set_visible(False)  
-ax.spines\['top'\].set_visible(False)
+```python
+# Hide the top and right spines of the axis  
+ax.spines['right'].set_visible(False)  
+ax.spines['top'].set_visible(False)
 ```
 
 ![](https://miro.medium.com/max/778/1*7ZSAdIfrdRY-JuwdxZJZ2g.png)
@@ -176,8 +181,12 @@ Blank figure and axes with the top and right spines removed
 
 We can edit the tick widths and lengths to match our axis parameters with the following code. If we have minor ticks, we can also edit the properties of these:
 
-```
-\# Edit the major and minor ticks of the x and y axesax.xaxis.set\_tick\_params(which='major', size=10, width=2, direction='in', top='on')ax.xaxis.set\_tick\_params(which='minor', size=7, width=2, direction='in', top='on')ax.yaxis.set\_tick\_params(which='major', size=10, width=2, direction='in', right='on')ax.yaxis.set\_tick\_params(which='minor', size=7, width=2, direction='in', right='on')
+```python
+# Edit the major and minor ticks of the x and y axes
+ax.xaxis.set_tick_params(which='major', size=10, width=2, direction='in', top='on')
+ax.xaxis.set_tick_params(which='minor', size=7, width=2, direction='in', top='on')
+ax.yaxis.set_tick_params(which='major', size=10, width=2, direction='in', right='on')
+ax.yaxis.set_tick_params(which='minor', size=7, width=2, direction='in', right='on')
 ```
 
 `which` — whether we are editing `major` , `minor` , or `both` ticks
@@ -199,8 +208,10 @@ Blank figure and axes with updated tick parameters
 
 We can now again plot our data, using the colors that we generated from the colormap to distinguish the samples:
 
-```
-\# Plot the two sample absorbances, using previously generated colorsax.plot(wavelength, samp\_1\_abs, linewidth=2, color=colors(0), label='Sample 1')ax.plot(wavelength, samp\_2\_abs, linewidth=2, color=colors(1), label='Sample 2')
+```python
+# Plot the two sample absorbances, using previously generated colors
+ax.plot(wavelength, samp_1_abs, linewidth=2, color=colors(0), label='Sample 1')
+ax.plot(wavelength, samp_2_abs, linewidth=2, color=colors(1), label='Sample 2')
 ```
 
 `linewidth` — line width of the line in the plot
@@ -211,8 +222,8 @@ We can now again plot our data, using the colors that we generated from the colo
 
 Now we can set the x and y-axis ranges with the following lines:
 
-```
-\# Set the axis limits  
+```python
+# Set the axis limits  
 ax.set_xlim(370, 930)  
 ax.set_ylim(-0.2, 2.2)
 ```
@@ -223,11 +234,12 @@ Plot of sample absorbance using generated colors and manually set axis limits
 
 We notice that the tick marks seem unbalanced between the two axes — we can also semi-manually edit this using a function called `MultipleLocator` which will create ticks at every multiple of a base number that we provide. We must edit the `major_locator` for the major ticks and `minor_locator` for the minor ticks. We will set major ticks every 100 nm and minor ticks every 50 nm for the x-axis and major ticks every 0.5 and minor ticks every 0.25 for the y-axis.
 
-```
-\# Edit the major and minor tick locationsax.xaxis.set\_major\_locator(mpl.ticker.MultipleLocator(100))  
-ax.xaxis.set\_minor\_locator(mpl.ticker.MultipleLocator(50))  
-ax.yaxis.set\_major\_locator(mpl.ticker.MultipleLocator(0.5))  
-ax.yaxis.set\_minor\_locator(mpl.ticker.MultipleLocator(0.25))
+```python
+# Edit the major and minor tick locations
+ax.xaxis.set_major_locator(mpl.ticker.MultipleLocator(100))  
+ax.xaxis.set_minor_locator(mpl.ticker.MultipleLocator(50))  
+ax.yaxis.set_major_locator(mpl.ticker.MultipleLocator(0.5))  
+ax.yaxis.set_minor_locator(mpl.ticker.MultipleLocator(0.25))
 ```
 
 ![](https://miro.medium.com/max/728/1*0G5wh5TFGQ8t8gWjvTFjYQ.png)
@@ -239,8 +251,9 @@ Previous plot of absorbance with manually adjusted tick intervals
 
 We must add labels to the x and y-axes, which we can easily do with the following code:
 
-```
-\# Add the x and y-axis labelsax.set_xlabel('Wavelength (nm)', labelpad=10)  
+```python
+# Add the x and y-axis labels
+ax.set_xlabel('Wavelength (nm)', labelpad=10)  
 ax.set_ylabel('Absorbance (O.D.)', labelpad=10)
 ```
 
@@ -252,8 +265,9 @@ Absorbance plot with axis labels added
 
 If you want to include Greek characters in your labels, you can use LaTeX syntax to do so. We create a raw string by prepending the string with `r` and enclose the LaTeX command with `$$` . However, this will use the default LaTeX font for the Greek characters — if we want to use the same font as the rest of the plot (assuming the character exists), we enclose our command with `$\mathregular{'Command goes here'}$`.
 
-```
-\# Add the x-axis label with λ for wavelengthax.set_xlabel(r'$\\mathregular{\\lambda}$ (nm)', labelpad=10)
+```python
+# Add the x-axis label with λ for wavelength
+ax.set_xlabel(r'$\mathregular{\lambda}$ (nm)', labelpad=10)
 ```
 
 ![](https://miro.medium.com/max/808/1*hh9KDR6admnZm4W2wYMZtg.png)
@@ -267,37 +281,41 @@ If we want to place ticks on one of the secondary (top/right) axes to show eithe
 
 We can create a second x-axis on the top of the plot to show the energy scaling. First, we must create a parasitic axis with either the `twinx()` or `twiny()` command to clone the x or y-axes, respectively. In this example, we want the y-axis data constant, so we will clone the y-axis. We also need to match the tick parameters of this new x-axis to the old plot’s x-axis (and remove `top='on'` from the original x-axis parameters).
 
-```
-\# Create new axes object by cloning the y-axis of the first plot  
-ax2 = ax.twiny()\# Edit the tick parameters of the new x-axis  
-ax2.xaxis.set\_tick\_params(which='major', size=10, width=2, direction='in')ax2.xaxis.set\_tick\_params(which='minor', size=7, width=2, direction='in')
+```python
+# Create new axes object by cloning the y-axis of the first plot  
+ax2 = ax.twiny()# Edit the tick parameters of the new x-axis  
+ax2.xaxis.set_tick_params(which='major', size=10, width=2, direction='in')
+ax2.xaxis.set_tick_params(which='minor', size=7, width=2, direction='in')
 ```
 
 To make our job of adding ticks in energy units to this axis easier, we can write a function to convert energy to wavelength (since we will place the ticks on the wavelength axis at points that energy values would correspond to). We will treat the input E as an array so we can do all the conversions at once:
 
-```
-\# Function to convert energy (eV) to wavelength (nm)  
-def E\_to\_WL(E):  
-    return \[1240/i for i in E\]
+```python
+# Function to convert energy (eV) to wavelength (nm)  
+def E_to_WL(E):  
+    return [1240/i for i in E]
 ```
 
 Since this is a non-linear transformation, we cannot easily use the `MultipleLocator` function, and we will add the tick marks manually, using a function called `FixedLocator` . To use `FixedLocator` we provide an array of all the locations at which we want there to be tick marks:
 
-```
-\# Add ticks manually to energy axisax2.xaxis.set\_major\_locator(mpl.ticker.FixedLocator(E\_to\_WL(np.linspace(1.5, 3.0, 4))))ax2.xaxis.set\_minor\_locator(mpl.ticker.FixedLocator(E\_to\_WL(np.linspace(1.4, 3.2, 19))))
+```python
+# Add ticks manually to energy axis
+ax2.xaxis.set_major_locator(mpl.ticker.FixedLocator(E_to_WL(np.linspace(1.5, 3.0, 4))))
+ax2.xaxis.set_minor_locator(mpl.ticker.FixedLocator(E_to_WL(np.linspace(1.4, 3.2, 19))))
 ```
 
 Since we added the ticks manually, we must also add the major tick labels manually.
 
-```
-\# Add tick labels manually to energy axisax2.set_xticklabels(\['1.5', '2.0', '2.5', '3.0'\])
+```python
+# Add tick labels manually to energy axis
+ax2.set_xticklabels(['1.5', '2.0', '2.5', '3.0'])
 ```
 
 Finally, we also want to add an axis label to our new x-axis and make sure the axis limits are the same as the original x-axis:
 
-```
-\# Add energy axis label  
-ax2.set_xlabel('Energy (eV)', labelpad=10)\# Set energy axis limits  
+```python
+# Add energy axis label  
+ax2.set_xlabel('Energy (eV)', labelpad=10)# Set energy axis limits  
 ax2.set_xlim(370, 930)
 ```
 
@@ -310,9 +328,9 @@ Absorbance plot with secondary, non-linear energy x-axis
 
 The final thing we must add to our plot is a legend, so that a reader can know which trace corresponds to which sample. To do so, we can use the following code:
 
-```
-\# Add legend to plot  
-ax.legend(bbox\_to\_anchor=(1, 1), loc=1, frameon=False, fontsize=16)
+```python
+# Add legend to plot  
+ax.legend(bbox_to_anchor=(1, 1), loc=1, frameon=False, fontsize=16)
 ```
 
 `bbox_to_anchor` — coordinate of the bounding box for our legend
@@ -332,9 +350,9 @@ Final absorbance plot, with wavelength and energy x-axes, along with a legend
 
 Lastly, saving your final plot is very simple — we can use the function `plt.savefig` to do this.
 
-```
-\# Save figure  
-plt.savefig('Final\_Plot.png', dpi=300, transparent=False, bbox\_inches='tight')
+```python
+# Save figure  
+plt.savefig('Final_Plot.png', dpi=300, transparent=False, bbox_inches='tight')
 ```
 
 `dpi` — resolution for a rastered image file format (in this case we are saving as `.png` file so this means that we are saving with a resolution of 300 dots per inch. The other possible file formats you can save are `.ps` , `.pdf` , and `.svg` which are all vector graphics formats, in which case you do not need to specify a `dpi` value)
@@ -345,8 +363,8 @@ plt.savefig('Final\_Plot.png', dpi=300, transparent=False, bbox\_inches='tight')
 
 To actually view our final plot in a figure window, we must add a `plt.show()` command after saving the figure.
 
-```
-\# Show figure  
+```python
+# Show figure  
 plt.show()
 ```
 
