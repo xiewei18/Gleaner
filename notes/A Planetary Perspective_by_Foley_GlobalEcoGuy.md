@@ -134,10 +134,11 @@ In short, if we don’t tackle these issues, we will be leaving a giant mess to 
 Photo by [Rene Bernal](https://unsplash.com/@renebbernal?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=medium&utm_medium=referral)
 
 **_Please read Part 2 of this article_** [**_here_**](https://globalecoguy.org/a-planetary-perspective-part-2-d8e1b17eb35?sk=32798f94abcda5aab455ccbcd5dd8efb)**_._**
----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _Dr._ [_Jonathan Foley_](http://globalecoguy.org/) _(@_[_GlobalEcoGuy_](http://twitter.com/@globalecoguy)_) is a climate & environmental scientist, writer, and speaker. He is also the Executive Director of_ [_Project Drawdown_](http://drawdown.org/)_, the world’s leading resource for climate solutions._
 
 _These views are his own._
 
 Copyright © 2015–2020, Jonathan Foley. All rights reserved.
+
+Commit: watch the video [here](https://drawdown.org/climate-solutions-101/unit-1-setting-the-stage)
